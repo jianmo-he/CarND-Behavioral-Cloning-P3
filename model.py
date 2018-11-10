@@ -2,6 +2,8 @@ import csv
 import cv2
 import numpy as np
 import tensorflow as tf
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from keras.models import Sequential, Model
 from keras.layers import Flatten, Dense, Convolution2D, Lambda, MaxPooling2D, Cropping2D
@@ -105,11 +107,16 @@ model.save('model.h5')
 
 ### print the keys contained in the history object
 print(history_object.history.keys())
+print(history_object.history['val_loss'])
+print(history_object.history['loss'])
+loss = []
+val_loss = []
+loss = history_object.history['loss']
+val_loss = history_object.history['val_loss']
 
 ### plot the training and validation loss for each epoch
-plt.figure()
-plt.plot(history_object.history['loss'])
-plt.plot(history_object.history['val_loss'])
+plt.plot(loss)
+plt.plot(val_loss)
 plt.title('model mean squared error loss')
 plt.ylabel('mean squared error loss')
 plt.xlabel('epoch')
@@ -117,5 +124,3 @@ plt.legend(['training set', 'validation set'], loc='upper right')
 plt.savefig('model.png')
 plt.show()
 
-### print the keys contained in the history object
-print(history_object.history.keys())
