@@ -51,11 +51,15 @@ for line in lines:
 # flip images and corresponding measurements to generate twice as much traning data
 augmented_images = []
 augmented_measurements = []
+i = 0
 for image, measurement in zip(images, measurements):
-	augmented_images.append(image)
-	augmented_measurements.append(measurement)
-	augmented_images.append(cv2.flip(image,1))
-	augmented_measurements.append(measurement*-1.0)
+    if i == 0:
+        print(image.shape)
+
+    augmented_images.append(image)
+    augmented_measurements.append(measurement)
+    augmented_images.append(cv2.flip(image,1))
+    augmented_measurements.append(measurement*-1.0)
 
 # store data in numpy array
 X_train = np.array(augmented_images)
