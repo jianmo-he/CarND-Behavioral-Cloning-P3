@@ -22,7 +22,7 @@ for line in lines:
 	# center images
     source_path = line[0]
     # data collected from windows. So using '\' instead of '/'
-    filename = source_path.split('\')[-1]
+    filename = source_path.split('\\')[-1]
     current_path = data_directory + 'IMG/' + filename
     image = cv2.imread(current_path)
     images.append(image)
@@ -35,7 +35,7 @@ for line in lines:
 	# left images, adjust steering back to center of road
     source_path = line[1]
     # data collected from windows. So using '\' instead of '/'
-    filename = source_path.split('\')[-1]
+    filename = source_path.split('\\')[-1]
     current_path = data_directory + 'IMG/' + filename
     image = cv2.imread(current_path)
     images.append(image)
@@ -44,9 +44,8 @@ for line in lines:
 	# right images, adjust steering back to center of road
     source_path = line[2]
     # data collected from windows. So using '\' instead of '/'
-    filename = source_path.split('\')[-1]
+    filename = source_path.split('\\')[-1]
     current_path = data_directory + 'IMG/' + filename
-    print(current_path)
     image = cv2.imread(current_path)
     images.append(image)
     measurements.append(measurement-correction)
@@ -56,10 +55,6 @@ augmented_images = []
 augmented_measurements = []
 i = 0
 for image, measurement in zip(images, measurements):
-    if i == 0:
-        height, width, channels = image.shape
-        print(height, width, channels)
-
     augmented_images.append(image)
     augmented_measurements.append(measurement)
     augmented_images.append(cv2.flip(image,1))
@@ -71,8 +66,8 @@ y_train = np.array(augmented_measurements)
 
 print("x_train :",X_train.shape)
 print("y_train :",y_train.shape)
-# input_shape=(160,320,3)
-# num_classes=1
+input_shape=(160,320,3)
+num_classes=1
 
 # setup Keras model, normalization, and cropping
 model = Sequential()
