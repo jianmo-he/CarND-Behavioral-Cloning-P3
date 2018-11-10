@@ -106,6 +106,7 @@ model.save('model.h5')
 print(history_object.history.keys())
 
 ### plot the training and validation loss for each epoch
+plt.figure()
 plt.plot(history_object.history['loss'])
 plt.plot(history_object.history['val_loss'])
 plt.title('model mean squared error loss')
