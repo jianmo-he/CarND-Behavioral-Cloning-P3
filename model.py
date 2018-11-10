@@ -11,45 +11,44 @@ data_directory = "../data/"
 # read driving log from simulation data
 lines = []
 with open(data_directory + 'driving_log.csv') as csvfile:
-	reader = csv.reader(csvfile)
-	for line in reader:
-		lines.append(line)
+    reader = csv.reader(csvfile)
+    for line in reader:
+        lines.append(line)
 
 # load all images and corresponding measurements. save in parallel lists
 images = []
 measurements = []
 for line in lines:
-
 	# center images
-	source_path = line[0]
-	filename = source_path.split('/')[-1]
-	current_path = data_directory + 'IMG/' + filename
+    source_path = line[0]
+    filename = source_path.split('/')[-1]
+    current_path = data_directory + 'IMG/' + filename
     print(current_path)
-	image = cv2.imread(current_path)
-	images.append(image)
-	measurement = float(line[3])
-	measurements.append(measurement)
+    image = cv2.imread(current_path)
+    images.append(image)
+    measurement = float(line[3])
+    measurements.append(measurement)
 
 	# steering correction for side images
-	correction = 0.2
+    correction = 0.2
 
 	# left images, adjust steering back to center of road
-	source_path = line[1]
-	filename = source_path.split('/')[-1]
-	current_path = data_directory + 'IMG/' + filename
+    source_path = line[1]
+    filename = source_path.split('/')[-1]
+    current_path = data_directory + 'IMG/' + filename
     print(current_path)
-	image = cv2.imread(current_path)
-	images.append(image)
-	measurements.append(measurement+correction)
+    image = cv2.imread(current_path)
+    images.append(image)
+    measurements.append(measurement+correction)
 
 	# right images, adjust steering back to center of road
-	source_path = line[2]
-	filename = source_path.split('/')[-1]
-	current_path = data_directory + 'IMG/' + filename
+    source_path = line[2]
+    filename = source_path.split('/')[-1]
+    current_path = data_directory + 'IMG/' + filename
     print(current_path)
-	image = cv2.imread(current_path)
-	images.append(image)
-	measurements.append(measurement-correction)
+    image = cv2.imread(current_path)
+    images.append(image)
+    measurements.append(measurement-correction)
 
 # flip images and corresponding measurements to generate twice as much traning data
 augmented_images = []
