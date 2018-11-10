@@ -24,6 +24,7 @@ for line in lines:
 	source_path = line[0]
 	filename = source_path.split('/')[-1]
 	current_path = data_directory + 'IMG/' + filename
+    print(current_path)
 	image = cv2.imread(current_path)
 	images.append(image)
 	measurement = float(line[3])
@@ -36,6 +37,7 @@ for line in lines:
 	source_path = line[1]
 	filename = source_path.split('/')[-1]
 	current_path = data_directory + 'IMG/' + filename
+    print(current_path)
 	image = cv2.imread(current_path)
 	images.append(image)
 	measurements.append(measurement+correction)
@@ -44,6 +46,7 @@ for line in lines:
 	source_path = line[2]
 	filename = source_path.split('/')[-1]
 	current_path = data_directory + 'IMG/' + filename
+    print(current_path)
 	image = cv2.imread(current_path)
 	images.append(image)
 	measurements.append(measurement-correction)
@@ -54,7 +57,8 @@ augmented_measurements = []
 i = 0
 for image, measurement in zip(images, measurements):
     if i == 0:
-        print(image.shape)
+        height, width, channels = image.shape
+        print(height, width, channels)
 
     augmented_images.append(image)
     augmented_measurements.append(measurement)
