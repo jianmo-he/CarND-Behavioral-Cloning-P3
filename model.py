@@ -21,9 +21,9 @@ measurements = []
 for line in lines:
 	# center images
     source_path = line[0]
-    filename = source_path.split('/')[-1]
+    # data collected from windows. So using '\' instead of '/'
+    filename = source_path.split('\')[-1]
     current_path = data_directory + 'IMG/' + filename
-    print(current_path)
     image = cv2.imread(current_path)
     images.append(image)
     measurement = float(line[3])
@@ -34,16 +34,17 @@ for line in lines:
 
 	# left images, adjust steering back to center of road
     source_path = line[1]
-    filename = source_path.split('/')[-1]
+    # data collected from windows. So using '\' instead of '/'
+    filename = source_path.split('\')[-1]
     current_path = data_directory + 'IMG/' + filename
-    print(current_path)
     image = cv2.imread(current_path)
     images.append(image)
     measurements.append(measurement+correction)
 
 	# right images, adjust steering back to center of road
     source_path = line[2]
-    filename = source_path.split('/')[-1]
+    # data collected from windows. So using '\' instead of '/'
+    filename = source_path.split('\')[-1]
     current_path = data_directory + 'IMG/' + filename
     print(current_path)
     image = cv2.imread(current_path)
@@ -73,48 +74,48 @@ print("y_train :",y_train.shape)
 # input_shape=(160,320,3)
 # num_classes=1
 
-# # setup Keras model, normalization, and cropping
-# model = Sequential()
-# model.add(Lambda(lambda x : x / 255.0 - 0.5, input_shape=input_shape))
-# model.add(Cropping2D(cropping=((70,25),(0,0))))
+# setup Keras model, normalization, and cropping
+model = Sequential()
+model.add(Lambda(lambda x : x / 255.0 - 0.5, input_shape=input_shape))
+model.add(Cropping2D(cropping=((70,25),(0,0))))
 
-# # LeNet model
-# # model.add(Convolution2D(6,5,5,activation='relu'))
-# # model.add(MaxPooling2D())
-# # model.add(Convolution2D(6,5, 5, activation='relu'))
-# # model.add(MaxPooling2D())
-# # model.add(Flatten())
-# # model.add(Dense(120))
-# # model.add(Dense(84))
-# # model.add(Dense(num_classes))
-
-# # Nvidia model
-# model.add(Convolution2D(24,5,5,subsample=(2,2),activation='relu'))
-# model.add(Convolution2D(36,5,5,subsample=(2,2),activation='relu'))
-# model.add(Convolution2D(48,5,5,subsample=(2,2),activation='relu'))
-# model.add(Convolution2D(64,3,3,activation='relu'))
-# model.add(Convolution2D(64,3,3,activation='relu'))
+# LeNet model
+# model.add(Convolution2D(6,5,5,activation='relu'))
+# model.add(MaxPooling2D())
+# model.add(Convolution2D(6,5, 5, activation='relu'))
+# model.add(MaxPooling2D())
 # model.add(Flatten())
-# model.add(Dense(100))
-# model.add(Dense(50))
-# model.add(Dense(10))
+# model.add(Dense(120))
+# model.add(Dense(84))
 # model.add(Dense(num_classes))
 
-# # compile model, train, and save the training history
-# model.compile(loss='mse', optimizer='adam')
-# history_object = model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=50)
+# Nvidia model
+model.add(Convolution2D(24,5,5,subsample=(2,2),activation='relu'))
+model.add(Convolution2D(36,5,5,subsample=(2,2),activation='relu'))
+model.add(Convolution2D(48,5,5,subsample=(2,2),activation='relu'))
+model.add(Convolution2D(64,3,3,activation='relu'))
+model.add(Convolution2D(64,3,3,activation='relu'))
+model.add(Flatten())
+model.add(Dense(100))
+model.add(Dense(50))
+model.add(Dense(10))
+model.add(Dense(num_classes))
 
-# model.save('model.h5')
+# compile model, train, and save the training history
+model.compile(loss='mse', optimizer='adam')
+history_object = model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=50)
 
-# ### print the keys contained in the history object
-# print(history_object.history.keys())
+model.save('model.h5')
 
-# ### plot the training and validation loss for each epoch
-# plt.plot(history_object.history['loss'])
-# plt.plot(history_object.history['val_loss'])
-# plt.title('model mean squared error loss')
-# plt.ylabel('mean squared error loss')
-# plt.xlabel('epoch')
-# plt.legend(['training set', 'validation set'], loc='upper right')
-# plt.show()
-# savefig('model.png')
+### print the keys contained in the history object
+print(history_object.history.keys())
+
+### plot the training and validation loss for each epoch
+plt.plot(history_object.history['loss'])
+plt.plot(history_object.history['val_loss'])
+plt.title('model mean squared error loss')
+plt.ylabel('mean squared error loss')
+plt.xlabel('epoch')
+plt.legend(['training set', 'validation set'], loc='upper right')
+plt.show()
+savefig('model.png')
