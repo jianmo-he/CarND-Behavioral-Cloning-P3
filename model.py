@@ -103,7 +103,7 @@ model.add(Dense(num_classes))
 
 # compile model, train, and save the training history
 model.compile(loss='mse', optimizer='adam')
-history_object = model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=50)
+history_object = model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=15)
 
 model.save('model.h5')
 
