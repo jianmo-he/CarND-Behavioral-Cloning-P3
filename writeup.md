@@ -120,7 +120,7 @@ To augment the data sat, I also flipped images and angles thinking that this wou
 ![alt text][normal]
 ![alt text][flipped]
 
-After the collection process, I had 48,216 number of data points. I then preprocessed this data by normalizing the image and cropping the top and bottom, as described earlier.
+After the collection process, I had 34,698 number of data points. I then preprocessed this data by normalizing the image and cropping the top and bottom, as described earlier.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
