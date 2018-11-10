@@ -13,12 +13,11 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [nvidia_cnn_image]: ./writeup_images/nvidia_cnn_architecture.png "Nvidia Model Visualization"
-[center]: ./writeup_images/center_2016_12_01_13_33_08_951.jpg "Center Driving"
+[center]: ./writeup_images/center.jpg "Center Driving"
 [left]: ./writeup_images/recovery_left.png "Left Recovery Image"
 [right]: ./writeup_images/recovery_right.png "Right Recovery Image"
 [normal]: ./writeup_images/normal.jpg "Normal Image"
 [flipped]: ./writeup_images/center_flipped.jpg "Flipped Image"
-
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -62,7 +61,7 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road, as well as driving the track in the opposite direction. When I recorded training data, however, I used the mouse, which drove the car very smoothly, but only generated angles which seemed to be between -1 and 1. When I trained the model on this data, the steering angles used to autonomously drive the car seemed to be within the same range, which was not enough to go around the tight turns. I tried using the provided data.zip data, which produced much higher turning angles, most likely because it was created using the WASD keys, which is either on at 25/-25 degrees, or off at 0 degrees. This resulted in much more responsive driving after training the model.
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road. And I drove the car as best as I can. Especially during the turns, I tried to drive it as smooth as I can. And I also reduced the speed during the turns. Because it the speed is set in autonomous mode.
 
 For details about how I created the training data, see the next section. 
 
